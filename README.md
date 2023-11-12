@@ -29,7 +29,7 @@ bunx prisma db push
 Start the server:
 
 ```bash
-bun run
+bun run start
 ```
 
 Or start the server in development mode:
