@@ -38,8 +38,6 @@ Or start the server in development mode:
 bun run dev
 ```
 
-# Movie API Documentation
-
 ## Endpoints
 
 ### GET /movies
