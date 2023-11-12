@@ -103,3 +103,7 @@ This endpoint deletes a specific movie by its ID.
 **Response:**
 
 A string message indicating the movie was successfully deleted.
+
+## Return types
+
+Accept xml or json as the return type by setting the `Accept` header to `application/xml` or `application/json` (by default).

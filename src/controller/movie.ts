@@ -1,41 +1,27 @@
-import { Elysia, NotFoundError, t } from "elysia"
+import { Elysia, NotFoundError } from "elysia"
 
 import prismaPlugin from "../plugins/prisma"
-import {
-  movieCreateSchema,
-  movieSchema,
-  movieUpdateSchema,
-} from "../schemas/movie"
+import { movieCreateSchema, movieUpdateSchema } from "../schemas/movie"
 
 const movieController = new Elysia()
   .use(prismaPlugin)
-  .get(
-    "/movies",
-    async ({ store: { db } }) => {
-      return db.movie.findMany()
-    },
-    { response: t.Array(movieSchema) },
-  )
+  .get("/movies", async ({ store: { db } }) => {
+    return db.movie.findMany()
+  })
   .post(
     "/movies",
-    async ({ store: { db }, body }) => {
+    async ({ store: { db }, body, set }) => {
+      set.status = 201
       return db.movie.create({ data: body })
     },
-    {
-      body: movieCreateSchema,
-      response: movieSchema,
-    },
+    { body: movieCreateSchema },
   )
-  .get(
-    "/movies/:id",
-    async ({ store: { db }, params: { id } }) => {
-      const movie = await db.movie.findUnique({ where: { id: Number(id) } })
-      if (!movie) throw new NotFoundError("Movie not found")
+  .get("/movies/:id", async ({ store: { db }, params: { id } }) => {
+    const movie = await db.movie.findUnique({ where: { id: Number(id) } })
+    if (!movie) throw new NotFoundError("Movie not found")
 
-      return movie
-    },
-    { response: movieSchema },
-  )
+    return movie
+  })
   .patch(
     "/movies/:id",
     async ({ store: { db }, params: { id }, body }) => {
@@ -44,25 +30,16 @@ const movieController = new Elysia()
 
       return db.movie.update({ where: { id: Number(id) }, data: body })
     },
-    {
-      body: movieUpdateSchema,
-      response: movieSchema,
-    },
+    { body: movieUpdateSchema },
   )
-  .delete(
-    "/movies/:id",
-    async ({ store: { db }, params: { id } }) => {
-      const deleted = await db.movie
-        .delete({ where: { id: Number(id) } })
-        .then(Boolean)
-        .catch(() => false)
+  .delete("/movies/:id", async ({ store: { db }, params: { id } }) => {
+    const deleted = await db.movie
+      .delete({ where: { id: Number(id) } })
+      .then(Boolean)
+      .catch(() => false)
 
-      if (!deleted) throw new NotFoundError("Movie not found")
-      return "Movie successfully deleted"
-    },
-    {
-      response: t.String(),
-    },
-  )
+    if (!deleted) throw new NotFoundError("Movie not found")
+    return "Movie successfully deleted"
+  })
 
 export default movieController
