@@ -1,15 +1,43 @@
-# Elysia with Bun runtime
+# Web Service
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
+## Description
+
+A basic CRUD service for movies, using Bun, Elysia, Prisma and Sqlite.
+
+## Installation
+
+Install bun if you haven't already:
+
 ```bash
-bun create elysia ./elysia-example
+curl -fsSL https://bun.sh/install | bash
 ```
 
-## Development
-To start the development server run:
+Install the dependencies:
+
+```bash
+bun install
+```
+
+Generate the database:
+
+```bash
+bunx prisma db push
+```
+
+## Usage
+
+Start the server:
+
+```bash
+bun run
+```
+
+Or start the server in development mode:
+
 ```bash
 bun run dev
 ```
 
-Open http://localhost:3000/ with your browser to see the result.
+## License
+
+MIT
