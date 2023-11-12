@@ -38,6 +38,70 @@ Or start the server in development mode:
 bun run dev
 ```
 
-## License
+# Movie API Documentation
 
-MIT
+## Endpoints
+
+### GET /movies
+
+This endpoint retrieves a list of all movies in the database.
+
+**Response:**
+
+An array of movie objects.
+
+### POST /movies
+
+This endpoint creates a new movie.
+
+**Request Body:**
+
+A movie object which includes:
+- `title`: The title of the movie.
+- `director`: The director of the movie.
+- `releaseDate`: The release date of the movie.
+- `rating`: The rating of the movie (optional).
+
+**Response:**
+
+The created movie object.
+
+### GET /movies/:id
+
+This endpoint retrieves a specific movie by its ID.
+
+**Path Parameters:**
+
+- `id`: The unique identifier of the movie.
+
+**Response:**
+
+The movie object.
+
+### PATCH /movies/:id
+
+This endpoint updates a specific movie by its ID.
+
+**Path Parameters:**
+
+- `id`: The unique identifier of the movie.
+
+**Request Body:**
+
+A movie object with the fields to be updated.
+
+**Response:**
+
+The updated movie object.
+
+### DELETE /movies/:id
+
+This endpoint deletes a specific movie by its ID.
+
+**Path Parameters:**
+
+- `id`: The unique identifier of the movie.
+
+**Response:**
+
+A string message indicating the movie was successfully deleted.
